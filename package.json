@@ -1,0 +1,51 @@
+{
+  "name": "PushNotificationsTutorial",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "16.11.0",
+    "react-native": "0.62.2",
+    "react-native-navigation": "^6.8.0",
+    "react-native-notifications": "^3.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "detox": "^17.0.1",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "jest-circus": "^26.1.0",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "mocha": "^8.0.1",
+    "react-test-renderer": "16.11.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/DerivedData/PushNotificationsTutorial/Build/Products/Debug-iphonesimulator/PushNotificationsTutorial.app",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme PushNotificationsTutorial -workspace ios/PushNotificationsTutorial.xcworkspace -sdk iphonesimulator -configuration Debug -derivedDataPath ios/DerivedData/PushNotificationsTutorial ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=YES",
+        "type": "ios.simulator",
+        "name": "iPhone 11"
+      },
+      "ios.sim.release": {
+        "binaryPath": "ios/DerivedData/PushNotificationsTutorial/Build/Products/Release-iphonesimulator/PushNotificationsTutorial.app",
+        "build": "RCT_NO_LAUNCH_PACKAGER=true xcodebuild build -scheme PushNotificationsTutorial -workspace playground/ios/playground.xcworkspace -sdk iphonesimulator -configuration Release -derivedDataPath ios/DerivedData/PushNotificationsTutorial ONLY_ACTIVE_ARCH=YES -quiet -UseModernBuildSystem=NO",
+        "type": "ios.simulator",
+        "name": "iPhone 11"
+      }
+    },
+    "test-runner": "jest"
+  }
+}
