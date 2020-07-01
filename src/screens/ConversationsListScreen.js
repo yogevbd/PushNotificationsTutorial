@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import {Text, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 
-class ChatScreen extends React.Component {
+class ConversationsListScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
@@ -30,7 +30,7 @@ class ChatScreen extends React.Component {
             component: {
               name: 'com.myApp.ConversationScreen',
               passProps: {
-                item
+                ...item
               }
             }
           });
@@ -41,4 +41,4 @@ class ChatScreen extends React.Component {
   }
 }
 
-export default ChatScreen;
+export default ConversationsListScreen;

@@ -1,12 +1,12 @@
 import {Navigation} from 'react-native-navigation';
-import MainScreen from './src/screens/MainScreen';
-import ChatScreen from './src/screens/ChatScreen';
-import ConversationScreen from './src/screens/ConversationScreen';
+import MainScreen from '../screens/MainScreen';
+import ConversationsListScreen from '../screens/ConversationsListScreen';
+import ConversationScreen from '../screens/ConversationScreen';
 
 export default class LayoutManager {
   registerScreens() {
     Navigation.registerComponent('com.myApp.MainScreen', () => MainScreen);
-    Navigation.registerComponent('com.myApp.ChatScreen', () => ChatScreen);
+    Navigation.registerComponent('com.myApp.ConversationsListScreen', () => ConversationsListScreen);
     Navigation.registerComponent('com.myApp.ConversationScreen', () => ConversationScreen);
   }
   
@@ -48,7 +48,7 @@ export default class LayoutManager {
   _createChatLayout(notification) {
     const children = [{
       component: {
-        name: 'com.myApp.ChatScreen'
+        name: 'com.myApp.ConversationsListScreen'
       }
     }];
 
