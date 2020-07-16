@@ -10,7 +10,7 @@ export default class LayoutManager {
     Navigation.registerComponent('com.myApp.ConversationScreen', () => ConversationScreen);
   }
   
-  createInitialLayout(notification) {
+  createLayout(notification) {
     return {
       bottomTabs: {
         children: [

@@ -6,8 +6,16 @@ const layoutManager = new LayoutManager();
 layoutManager.registerScreens();
 
 Navigation.events().registerAppLaunchedListener(async () => {
-  const notification = await Notifications.getInitialNotification();
-  Navigation.setRoot({
-    root: layoutManager.createInitialLayout(notification)
+  Notifications.events().registerNotificationOpened((notification) => {
+    setRoot(notification);
   });
+
+  const notification = await Notifications.getInitialNotification();
+  setRoot(notification);
 });
+
+function setRoot(notification) {
+  Navigation.setRoot({
+    root: layoutManager.createLayout(notification)
+  });
+}
