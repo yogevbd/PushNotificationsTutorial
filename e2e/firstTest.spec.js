@@ -3,9 +3,20 @@ describe('Push Notifications Tutorial', () => {
     await device.relaunchApp({delete: true, permissions: {notifications: 'YES'}});
   });
 
-  it('should present initial chat notification', async () => {
-    await device.launchApp({newInstance: true, userNotification: createChatNotification({id: '1', name: 'Jhon'})});
-    await expect(element(by.label('Conversation with: Jhon'))).toBeVisible();
+  describe('initial launch', () => {
+    it('should open conversation', async () => {
+      await device.launchApp({newInstance: true, userNotification: createChatNotification({id: '1', name: 'Jhon'})});
+      await expect(element(by.label('Conversation with: Jhon'))).toBeVisible();
+    });
+  });
+
+  describe('background state', () => {
+    it('should open conversation', async () => {
+      await device.launchApp({newInstance: true});
+      await device.sendToHome();
+      await device.launchApp({newInstance: false, userNotification: createChatNotification({id: '1', name: 'Jhon'})});
+      await expect(element(by.label('Conversation with: Jhon'))).toBeVisible();
+    });
   });
 });
 
