@@ -7,15 +7,13 @@ layoutManager.registerScreens();
 
 Navigation.events().registerAppLaunchedListener(async () => {
   Notifications.events().registerNotificationOpened((notification) => {
-    setRoot(notification);
+    // Handle notification opened from background
+    layoutManager.loadChatNotification(notification);
   });
 
-  const notification = await Notifications.getInitialNotification();
-  setRoot(notification);
+  // Get the notification that triggered the app launch
+  const initialNotification = await Notifications.getInitialNotification();
+  
+  // Load the application root layout with the initial notification
+  layoutManager.loadRoot(initialNotification);
 });
-
-function setRoot(notification) {
-  Navigation.setRoot({
-    root: layoutManager.createLayout(notification)
-  });
-}

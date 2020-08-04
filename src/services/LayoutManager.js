@@ -3,32 +3,49 @@ import MainScreen from '../screens/MainScreen';
 import ConversationsListScreen from '../screens/ConversationsListScreen';
 import ConversationScreen from '../screens/ConversationScreen';
 
+const Tabs = {
+  Main: 0,
+  Chat: 1
+};
+
 export default class LayoutManager {
   registerScreens() {
     Navigation.registerComponent('com.myApp.MainScreen', () => MainScreen);
     Navigation.registerComponent('com.myApp.ConversationsListScreen', () => ConversationsListScreen);
     Navigation.registerComponent('com.myApp.ConversationScreen', () => ConversationScreen);
   }
-  
-  createLayout(notification) {
-    return {
-      bottomTabs: {
-        children: [
-          this._createMainLayout(),
-          this._createChatLayout(notification)
-        ],
-        options: {
-          bottomTabs: {
-            currentTabIndex: notification ? 1 : 0
+
+  loadRoot(initialNotification) {
+    Navigation.setRoot({
+      root: {
+        bottomTabs: {
+          children: [
+            this._createMainLayout(),
+            this._createChatLayout(initialNotification)
+          ],
+          options: {
+            bottomTabs: {
+              currentTabIndex: initialNotification ? Tabs.Chat : Tabs.Main
+            }
           }
         }
       }
-    }
+    });
+  }
+  
+  loadChatNotification(notification) {
+    Navigation.setStackRoot('Chat', this._createChatChildren(notification));
+    Navigation.mergeOptions('Chat', {
+      bottomTabs: {
+        currentTabIndex: Tabs.Chat
+      }
+    });
   }
 
   _createMainLayout() {
     return {
       stack: {
+        id: 'Main',
         children: [
           {
             component: {
@@ -46,6 +63,20 @@ export default class LayoutManager {
   }
 
   _createChatLayout(notification) {
+    return {
+      stack: {
+        id: 'Chat',
+        children: this._createChatChildren(notification),
+        options: {
+          bottomTab: {
+            text: 'Chat'
+          }
+        }
+      }
+    }
+  }
+  
+  _createChatChildren(notification) {
     const children = [{
       component: {
         name: 'com.myApp.ConversationsListScreen'
@@ -64,15 +95,6 @@ export default class LayoutManager {
       });
     }
 
-    return {
-      stack: {
-        children,
-        options: {
-          bottomTab: {
-            text: 'Chat'
-          }
-        }
-      }
-    }
+    return children;
   }
 }
